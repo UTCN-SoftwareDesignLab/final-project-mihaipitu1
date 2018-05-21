@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConcertVenueApp.Database;
+using ConcertVenueApp.Repositories.Users;
+using ConcertVenueApp.Services.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +25,15 @@ namespace ConcertVenueApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<DBConnectionWrapper>(_ => new DBConnectionFactory().GetConnectionWrapper(false));
+
+            services.AddScoped<IUserRepository, UserRepositoryMySQL>();
+            //services.AddScoped<IBaseRepository<Patient>, PatientRepositoryMySQL>();
+            //services.AddScoped<IConsultationRepository, ConsultationRepositoryMySQL>();
+            services.AddScoped<IAuthenticationService, AuthenticationServiceMySQL>();
+            services.AddScoped<IAdminService, AdminServiceMySQL>();
+            //services.AddScoped<IPatientService, PatientServiceMySQL>();
+            //services.AddScoped<IConsultationService, ConsultationServiceMySQL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +55,7 @@ namespace ConcertVenueApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Login}/{action=Login}/{id?}");
             });
         }
     }

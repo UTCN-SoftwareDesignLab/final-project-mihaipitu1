@@ -31,8 +31,7 @@
                 @Html.DropDownListFor(model => model.Type, new List<SelectListItem>
                  {
                     new SelectListItem {Value = "admin", Text = "Admin"},
-                    new SelectListItem {Value = "secretary", Text = "Clinic Secretary"},
-                    new SelectListItem {Value = "doctor", Text = "Doctor"}
+                    new SelectListItem {Value = "user", Text = "Regular User"},
                 })
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
@@ -44,5 +43,5 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to all users</a>
+    <a asp-action="Users">Back to all users</a>
 </div>

@@ -18,7 +18,7 @@ namespace ConcertVenueApp.Controllers
         {
             this.adminService = adminService;
         }
-        public ActionResult Index()
+        public ActionResult Users()
         {
             var users = adminService.GetUsers();
             return View(users);
@@ -41,7 +41,7 @@ namespace ConcertVenueApp.Controllers
                 ViewData["Errors"] = notifier.GetErrors();
                 return View("Error");
             }
-            return RedirectToAction("Index", "User");
+            return RedirectToAction("Users", "User");
         }
 
         // GET: User/Edit/5
@@ -59,7 +59,7 @@ namespace ConcertVenueApp.Controllers
             if (ModelState.IsValid)
             {
                 adminService.UpdateUser(user);
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("Users", "User");
             }
 
             return StatusCode(400);
@@ -80,7 +80,7 @@ namespace ConcertVenueApp.Controllers
             if (ModelState.IsValid)
             {
                 bool x = adminService.DeleteUser(user);
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("Users", "User");
             }
             return StatusCode(404);
         }

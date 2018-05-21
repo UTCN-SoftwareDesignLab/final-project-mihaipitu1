@@ -34,8 +34,8 @@ namespace ConcertVenueApp.Controllers
             var user = userNotification.GetResult();
             switch (user.GetType())
             {
-                case "admin": return RedirectToAction("Index", "User");
-                case "secretary": return RedirectToAction("Patients", "Clinic");
+                case "admin": return RedirectToAction("Users", "User");
+                case "user": return RedirectToAction("Events", "Venue");
                 default:
                     return StatusCode(404);
             }

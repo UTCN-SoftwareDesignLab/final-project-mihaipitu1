@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConcertVenueApp.Database;
+using ConcertVenueApp.Repositories.Events;
+using ConcertVenueApp.Repositories.Tickets;
 using ConcertVenueApp.Repositories.Users;
+using ConcertVenueApp.Services.Events;
+using ConcertVenueApp.Services.Tickets;
 using ConcertVenueApp.Services.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,12 +32,12 @@ namespace ConcertVenueApp
             services.AddTransient<DBConnectionWrapper>(_ => new DBConnectionFactory().GetConnectionWrapper(false));
 
             services.AddScoped<IUserRepository, UserRepositoryMySQL>();
-            //services.AddScoped<IBaseRepository<Patient>, PatientRepositoryMySQL>();
-            //services.AddScoped<IConsultationRepository, ConsultationRepositoryMySQL>();
+            services.AddScoped<IEventRepository, EventRepositoryMySQL>();
+            services.AddScoped<ITicketRepository, TicketRepositoryMySQL>();
             services.AddScoped<IAuthenticationService, AuthenticationServiceMySQL>();
             services.AddScoped<IAdminService, AdminServiceMySQL>();
-            //services.AddScoped<IPatientService, PatientServiceMySQL>();
-            //services.AddScoped<IConsultationService, ConsultationServiceMySQL>();
+            services.AddScoped<IEventService, EventServiceMySQL>();
+            services.AddScoped<ITicketService, TicketServiceMySQL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

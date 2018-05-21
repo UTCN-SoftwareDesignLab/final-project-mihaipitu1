@@ -92,7 +92,7 @@ namespace ConcertVenueApp.Repositories.Tickets
             return ticket;
         }
 
-        public List<Ticket> FindTicketsByHolder(int user_id)
+        public List<Ticket> FindTicketsByHolder(long user_id)
         {
             List<Ticket> tickets = new List<Ticket>();
             using (MySqlConnection connection = connectionWrapper.GetConnection())

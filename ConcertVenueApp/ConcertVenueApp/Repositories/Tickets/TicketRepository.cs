@@ -8,6 +8,6 @@ namespace ConcertVenueApp.Repositories.Tickets
 {
     public interface ITicketRepository : IBaseRepository<Ticket>
     {
-        List<Ticket> FindTicketsByHolder(int user_id);
+        List<Ticket> FindTicketsByHolder(long user_id);
     }
 }

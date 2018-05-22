@@ -43,7 +43,7 @@ namespace ConcertVenueApp.Controllers
         public ActionResult Edit(int id)
         {
             var ev = eventService.GetEventById(id);
-            return View();
+            return View(ev);
         }
 
         // POST: Event/Edit/5
@@ -59,7 +59,7 @@ namespace ConcertVenueApp.Controllers
         public ActionResult Delete(int id)
         {
             var ev = eventService.GetEventById(id);
-            return View();
+            return View(ev);
         }
 
         // POST: Event/Delete/5

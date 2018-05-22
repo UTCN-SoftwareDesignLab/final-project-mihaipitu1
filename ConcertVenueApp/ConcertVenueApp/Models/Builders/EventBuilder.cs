@@ -59,7 +59,7 @@ namespace ConcertVenueApp.Models.Builders
 
         public Event Build()
         {
-            throw new NotImplementedException();
+            return eventName;
         }
     }
 }

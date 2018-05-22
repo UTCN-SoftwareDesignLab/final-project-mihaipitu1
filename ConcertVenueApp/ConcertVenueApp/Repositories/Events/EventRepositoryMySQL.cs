@@ -27,7 +27,7 @@ namespace ConcertVenueApp.Repositories.Events
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = String.Format("Insert into event (id, title, genre, date, description, noTickets, ticketPrice) VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}'); ", t.GetId(), t.GetTitle(), t.GetGenre(), t.GetDate(), t.GetDescription(),t.GetNoTickets(),t.GetTicketPrice());
+                    command.CommandText = String.Format("Insert into event (id, title, genre, date, description, noTickets, ticketPrice) VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}'); ", t.GetId(), t.GetTitle(), t.GetGenre(), t.GetDate().ToString("yyyy-MM-dd HH:mm:ss"), t.GetDescription(),t.GetNoTickets(),t.GetTicketPrice());
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -121,7 +121,7 @@ namespace ConcertVenueApp.Repositories.Events
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = String.Format("Update event SET title='{0}', genre = '{1}', date = '{2}', description = '{3}', noTickets = '{4}' , ticketPrice = '{5}' where id = '{6}';", t.GetTitle(), t.GetGenre(), t.GetDate(), t.GetDescription(), t.GetNoTickets(), t.GetTicketPrice(),t.GetId());
+                    command.CommandText = String.Format("Update event SET title='{0}', genre = '{1}', date = '{2}', description = '{3}', noTickets = '{4}' , ticketPrice = '{5}' where id = '{6}';", t.GetTitle(), t.GetGenre(), t.GetDate().ToString("yyyy-MM-dd HH:mm:ss"), t.GetDescription(), t.GetNoTickets(), t.GetTicketPrice(),t.GetId());
                     command.ExecuteNonQuery();
                 }
                 connection.Close();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConcertVenueApp.Models;
+using ConcertVenueApp.Models.Validators;
 using ConcertVenueApp.Services.Events;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,12 @@ namespace ConcertVenueApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Event ev)
         {
-            eventService.CreateEvent(ev);
+            Notification<bool> notifier = eventService.CreateEvent(ev);
+            if(!notifier.GetResult())
+            {
+                ViewData["Errors"] = notifier.GetErrors();
+                return View("Error");
+            }
             return RedirectToAction("Events");
         }
 

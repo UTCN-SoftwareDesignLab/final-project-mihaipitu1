@@ -1,4 +1,5 @@
 ﻿using ConcertVenueApp.Models;
+using ConcertVenueApp.Models.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace ConcertVenueApp.Services.Events
 {
     public interface IEventService
     {
-        bool CreateEvent(Event ev);
+        Notification<bool> CreateEvent(Event ev);
 
         bool DeleteEvent(Event ev);
 

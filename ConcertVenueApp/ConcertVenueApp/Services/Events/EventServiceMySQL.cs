@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConcertVenueApp.Models;
+using ConcertVenueApp.Models.Validators;
 using ConcertVenueApp.Repositories.Events;
 
 namespace ConcertVenueApp.Services.Events
@@ -16,10 +17,25 @@ namespace ConcertVenueApp.Services.Events
             this.eventRepo = eventRepo;
         }
 
-        public bool CreateEvent(Event ev)
+        public Notification<bool> CreateEvent(Event ev)
         {
             ev.SetId(GetMaxId() + 1);
-            return eventRepo.Create(ev);
+            EventValidator validator = new EventValidator(ev);
+            bool valid = validator.Validate();
+            Notification<bool> notifier = new Notification<bool>();
+            if(!valid)
+            {
+                foreach(var error in validator.GetErrors())
+                {
+                    notifier.AddError(error);
+                }
+                notifier.SetResult(false);
+            }
+            else
+            {
+                notifier.SetResult(eventRepo.Create(ev));
+            }
+            return notifier;
         }
 
         public bool DeleteEvent(Event ev)

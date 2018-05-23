@@ -24,6 +24,11 @@ namespace ConcertVenueApp.Controllers
             return View(users);
         }
 
+        public ActionResult Error(List<string> errors)
+        {
+            return View();
+        }
+
         // GET: User/Create
         public ActionResult Create()
         {

@@ -1,0 +1,54 @@
+﻿@model ConcertVenueApp.Models.Event
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Event</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NoTickets)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoTickets)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TicketPrice)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Buy Ticket", "BuyTicket", new { id = Model.Id }) |
+    <a asp-action="Events">Back to all events</a>
+</div>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ConcertVenueApp.Services.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ConcertVenueApp.Controllers
 {
@@ -35,7 +36,11 @@ namespace ConcertVenueApp.Controllers
             switch (user.GetType())
             {
                 case "admin": return RedirectToAction("Users", "User");
-                case "user": return RedirectToAction("Events", "Venue");
+                case "user":
+                    {
+                        TempData["user"] = JsonConvert.SerializeObject(user);
+                        return RedirectToAction("Events", "Venue");
+                    }
                 default:
                     return StatusCode(404);
             }

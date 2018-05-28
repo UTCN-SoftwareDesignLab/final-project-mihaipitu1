@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ConcertVenueApp.Models.Ticket>
+
+@{
+    ViewData["Title"] = "UserTickets";
+}
+
+<h2>UserTickets</h2>
+
+<p>
+    <a asp-action="Events">See all events</a> |
+    <a asp-action="SendTickets">Send tickets via e-mail</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketEvent.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketEvent.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketEvent.TicketPrice)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketEvent.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketEvent.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketEvent.TicketPrice)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

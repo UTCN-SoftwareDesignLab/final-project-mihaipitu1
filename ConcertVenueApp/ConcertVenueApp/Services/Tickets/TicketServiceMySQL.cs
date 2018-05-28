@@ -3,22 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConcertVenueApp.Models;
+using ConcertVenueApp.Repositories.Events;
 using ConcertVenueApp.Repositories.Tickets;
+using ConcertVenueApp.Repositories.Users;
 
 namespace ConcertVenueApp.Services.Tickets
 {
     public class TicketServiceMySQL : ITicketService
     {
         private ITicketRepository ticketRepo;
+        private IUserRepository userRepo;
+        private IEventRepository eventRepo;
 
-        public TicketServiceMySQL(ITicketRepository ticketRepo)
+        public TicketServiceMySQL(ITicketRepository ticketRepo,IUserRepository userRepo,IEventRepository eventRepo)
         {
             this.ticketRepo = ticketRepo;
+            this.userRepo = userRepo;
+            this.eventRepo = eventRepo;
         }
 
         public bool CreateTicket(Ticket ticket)
         {
             ticket.SetId(GetMaxId() + 1);
+            Event ev = eventRepo.FindById(ticket.GetEventId());
+            ev.SetNoTickets(ev.GetNoTickets() - 1);
+            eventRepo.Update(ev);
             return ticketRepo.Create(ticket);
         }
 
@@ -34,12 +43,28 @@ namespace ConcertVenueApp.Services.Tickets
 
         public List<Ticket> GetTickets()
         {
-            return ticketRepo.FindAll();
+            var ti = ticketRepo.FindAll();
+            List<Ticket> tickets = new List<Ticket>();
+            foreach(var t in ti)
+            {
+                t.SetTicketEvent(eventRepo.FindById(t.GetEventId()));
+                t.SetTicketHolder(userRepo.FindById(t.GetUserId()));
+                tickets.Add(t);
+            }
+            return tickets;
         }
 
         public List<Ticket> GetTicketsByUser(long user_id)
         {
-            return ticketRepo.FindTicketsByHolder(user_id);
+            var ti = ticketRepo.FindTicketsByHolder(user_id);
+            List<Ticket> tickets = new List<Ticket>();
+            foreach (var t in ti)
+            {
+                t.SetTicketEvent(eventRepo.FindById(t.GetEventId()));
+                t.SetTicketHolder(userRepo.FindById(t.GetUserId()));
+                tickets.Add(t);
+            }
+            return tickets;
         }
 
         public bool UpdateTicket(Ticket ticket)

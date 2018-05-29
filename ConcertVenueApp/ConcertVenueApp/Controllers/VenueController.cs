@@ -96,7 +96,7 @@ namespace ConcertVenueApp.Controllers
                 var tickets = ticketService.GetTicketsByUser(user.GetId());
                 FileStream file = PdfFileGenerator.GeneratePdfTickets(tickets);
                 EmailCreation.SendEMail(file.Name, user.GetUsername());
-                return RedirectToAction("UserTickets");
+                return RedirectToAction("Events");
             }
             return StatusCode(404);
         }

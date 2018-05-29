@@ -13,17 +13,18 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
-                @Html.Editor("Username")
+                <input asp-for="Username" class="form-control" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                @Html.Password("Password")
+                <input type=password asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Login" class="btn btn-default" />
             </div>
         </form>
+        <p>@Html.ActionLink("Register as a new user","Register")</p>
     </div>
 </div>

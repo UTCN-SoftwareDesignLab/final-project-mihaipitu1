@@ -27,6 +27,7 @@ namespace ConcertVenueApp.Utilities.FileGenerator
             doc.Close();
             FileStream file = new FileStream("tickets.pdf", FileMode.Create, FileAccess.ReadWrite);
             mem.WriteTo(file);
+            file.Close();
             return file;
         }
     }
